@@ -63,8 +63,13 @@ const Dashboard = () => {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-black text-white tracking-tight">Student <span className="text-indigo-400">Analysis</span></h1>
-          <p className="text-slate-400 mt-1">John Doe (1MS21CS001)</p>
+          <h1 className="text-5xl font-black tracking-tight leading-tight">
+            <span className="text-white">Academic</span> <span className="text-gradient">Analytics</span>
+          </h1>
+          <p className="text-slate-400 mt-2 font-medium flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+            Welcome back, <span className="text-indigo-300">John Doe</span> (1MS21CS001)
+          </p>
         </div>
         
         <div className="flex flex-wrap items-center gap-3 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
@@ -94,18 +99,18 @@ const Dashboard = () => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'Current CGPA', value: '8.65', icon: Trophy, color: 'text-yellow-400', bg: 'bg-yellow-400/10' },
-          { label: 'Last SGPA', value: '8.50', icon: TrendingUp, color: 'text-indigo-400', bg: 'bg-indigo-400/10' },
-          { label: 'Total Credits', value: '132', icon: BookOpen, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-          { label: 'Active Scheme', value: allSchemes[selectedScheme].name.split(' ')[0], icon: Settings2, color: 'text-rose-400', bg: 'bg-rose-400/10' },
+          { label: 'Current CGPA', value: '8.65', icon: Trophy, color: 'text-indigo-400', glow: 'shadow-indigo-500/20' },
+          { label: 'Last SGPA', value: '8.50', icon: TrendingUp, color: 'text-violet-400', glow: 'shadow-violet-500/20' },
+          { label: 'Total Credits', value: '132', icon: BookOpen, color: 'text-cyan-400', glow: 'shadow-cyan-500/20' },
+          { label: 'Active Scheme', value: allSchemes[selectedScheme].name.split(' ')[0], icon: Settings2, color: 'text-rose-400', glow: 'shadow-rose-500/20' },
         ].map((stat, idx) => (
-          <div key={idx} className="glass-dark p-6 rounded-3xl border border-white/5 flex items-start justify-between group hover:border-indigo-500/30 transition-all">
+          <div key={idx} className={`glass-dark p-6 rounded-[2.5rem] border border-white/5 flex items-start justify-between group hover:border-white/20 transition-all duration-500 cursor-default card-glow shadow-xl ${stat.glow}`}>
             <div>
-              <p className="text-slate-400 text-sm font-medium">{stat.label}</p>
-              <h3 className="text-3xl font-bold text-white mt-1">{stat.value}</h3>
+              <p className="text-slate-400 text-xs font-black uppercase tracking-widest">{stat.label}</p>
+              <h3 className={`text-4xl font-black mt-2 tracking-tighter ${stat.color}`}>{stat.value}</h3>
             </div>
-            <div className={`p-3 rounded-2xl ${stat.bg} ${stat.color} group-hover:scale-110 transition-transform`}>
-              <stat.icon size={24} />
+            <div className={`p-4 rounded-[1.5rem] bg-slate-900/50 ${stat.color} group-hover:scale-110 transition-transform duration-500 border border-white/5`}>
+              <stat.icon size={28} />
             </div>
           </div>
         ))}
@@ -114,12 +119,13 @@ const Dashboard = () => {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Progress Chart */}
-        <div className="lg:col-span-2 glass-dark p-8 rounded-3xl border border-white/5">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-white">Academic Progress</h2>
-            <div className="flex gap-2 bg-slate-900/50 p-1 rounded-lg">
+        <div className="lg:col-span-2 glass-dark p-8 rounded-[2.5rem] border border-white/5 card-glow relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[100px] pointer-events-none group-hover:bg-indigo-500/10 transition-all duration-700" />
+          <div className="flex items-center justify-between mb-8 relative z-10">
+            <h2 className="text-2xl font-black text-white tracking-tight">Academic <span className="text-indigo-400">Journey</span></h2>
+            <div className="flex gap-1 bg-slate-900/80 p-1.5 rounded-2xl border border-white/5">
               {['SGPA', 'CGPA'].map(t => (
-                <button key={t} className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${t === 'SGPA' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}>
+                <button key={t} className={`px-6 py-2 text-xs font-black rounded-xl transition-all duration-300 ${t === 'SGPA' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 translate-y-[-1px]' : 'text-slate-500 hover:text-slate-300'}`}>
                   {t}
                 </button>
               ))}

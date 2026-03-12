@@ -10,7 +10,8 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-indigo-500/30">
+      <div className="min-h-screen text-slate-200 selection:bg-indigo-500/30">
+        <div className="mesh-gradient" />
         <Navbar />
         <main className="container mx-auto px-4 py-8">
           <Routes>

@@ -20,16 +20,18 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-20">
-      <div className="glass-dark p-8 rounded-3xl border border-indigo-500/20 shadow-2xl">
+    <div className="max-w-md mx-auto mt-20 relative px-4">
+      <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500/20 blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-cyan-500/10 blur-[100px] pointer-events-none" />
+      <div className="glass-dark p-10 rounded-[2.5rem] border border-white/10 shadow-2xl relative z-10 card-glow">
         <div className="text-center mb-8">
           <div className="inline-flex gap-2 bg-slate-900/40 p-1 rounded-xl mb-6 border border-white/5 mx-auto">
             <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg">2025 SCHEME</button>
             <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2022</button>
             <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2021</button>
           </div>
-          <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Login</h1>
-          <p className="text-slate-400">Access your academic analytics</p>
+          <h1 className="text-5xl font-black tracking-tighter text-white mb-2">Login</h1>
+          <p className="text-slate-400 font-medium">Access your <span className="text-gradient font-bold uppercase tracking-wider text-xs">Academic Insights</span></p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
