@@ -24,7 +24,8 @@ const Login = () => {
       <div className="glass-dark p-8 rounded-3xl border border-indigo-500/20 shadow-2xl">
         <div className="text-center mb-8">
           <div className="inline-flex gap-2 bg-slate-900/40 p-1 rounded-xl mb-6 border border-white/5 mx-auto">
-            <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg">2022 SCHEME</button>
+            <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg">2025 SCHEME</button>
+            <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2022</button>
             <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2021</button>
           </div>
           <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Login</h1>

@@ -28,6 +28,15 @@ const allSchemes = {
       { code: "21CS33", name: "Analog & Digital", score: 74 },
       { code: "21CS34", name: "Computer Org", score: 80 }
     ]
+  },
+  "2025_cse": {
+    name: "2025 Scheme (CSE)",
+    subjects: [
+      { code: "BMAT101", name: "Applied Maths-1", score: 88 },
+      { code: "BPHYS102", name: "Quantum Physics", score: 84 },
+      { code: "BPLC105B", name: "Python Prog", score: 90 },
+      { code: "BCS106", name: "Intro to AI", score: 95 }
+    ]
   }
 };
 

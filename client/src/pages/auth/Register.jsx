@@ -85,13 +85,13 @@ const Register = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-300 ml-1">Batch Scheme</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {['2022', '2021'].map(year => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {['2025', '2022', '2021'].map(year => (
                       <button
                         key={year}
                         type="button"
                         onClick={() => setFormData({...formData, scheme: year})}
-                        className={`py-3 rounded-xl border text-sm font-black transition-all ${formData.scheme === year ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-900/50 border-slate-700/50 text-slate-500 hover:border-indigo-500/30 font-bold'}`}
+                        className={`py-3 rounded-xl border text-[10px] font-black transition-all ${formData.scheme === year ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-900/50 border-slate-700/50 text-slate-500 hover:border-indigo-500/30 font-bold'}`}
                       >
                         {year} SCHEME
                       </button>

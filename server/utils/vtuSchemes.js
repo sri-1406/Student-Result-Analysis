@@ -49,6 +49,19 @@ const vtuSchemes = {
     "description": "Continuation of the 2022 scheme with minor curriculum refinements.",
     "isContinuation": true,
     "base": "2022"
+  },
+  "2025": {
+    "name": "2025 Scheme (OBE/CBCS)",
+    "description": "The latest forward-looking scheme introduced for the 2025-26 academic year.",
+    "streams": ["Computer Science (CSE)", "Information Science (ISE)", "Electrical", "Mechanical"],
+    "semesters": {
+      "sem1_2": [
+        { "code": "BMAT101", "name": "Applied Mathematics-1 (CSE)", "credits": 4 },
+        { "code": "BPHYS102", "name": "Quantum Physics and Applications", "credits": 4 },
+        { "code": "BPLC105B", "name": "Python Programming", "credits": 3 },
+        { "code": "BCS106", "name": "Introduction to AI and Applications", "credits": 3 }
+      ]
+    }
   }
 };
 

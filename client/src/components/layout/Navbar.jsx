@@ -16,7 +16,8 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-4 bg-slate-900/40 p-1.5 rounded-xl border border-white/5">
-            <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg shadow-lg">2022 SCHEME</button>
+            <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg shadow-lg">2025 SCHEME</button>
+            <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2022</button>
             <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2021</button>
           </div>
 
