@@ -109,10 +109,6 @@ const Dashboard = () => {
           <h1 className="text-5xl font-black tracking-tight leading-tight">
             <span className="text-white">Academic</span> <span className="text-gradient">Analytics</span>
           </h1>
-          <p className="text-slate-400 mt-2 font-medium flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-            Welcome back, <span className="text-indigo-300">{JSON.parse(localStorage.getItem('user'))?.name || 'Student'}</span> ({JSON.parse(localStorage.getItem('user'))?.usn || 'N/A'})
-          </p>
         </div>
         
         <div className="flex flex-wrap items-center gap-3 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
