@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const authRoutes = require('./routes/authRoutes');
 const resultRoutes = require('./routes/resultRoutes');
+const schemeRoutes = require('./routes/schemeRoutes');
 
 // Middleware
 app.use(cors());
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/results', resultRoutes);
+app.use('/api/schemes', schemeRoutes);
 
 // Basic Route
 app.get('/', (req, res) => {
