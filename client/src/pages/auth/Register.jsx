@@ -69,18 +69,36 @@ const Register = () => {
             </div>
             
             {formData.role === 'student' && (
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300 ml-1">USN</label>
-                <div className="relative group">
-                  <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
-                  <input
-                    type="text"
-                    className="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                    placeholder="1MS21CS001"
-                    onChange={(e) => setFormData({...formData, usn: e.target.value})}
-                  />
+              <>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-300 ml-1">USN</label>
+                  <div className="relative group">
+                    <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                    <input
+                      type="text"
+                      className="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-mono"
+                      placeholder="1MS21CS001"
+                      onChange={(e) => setFormData({...formData, usn: e.target.value})}
+                    />
+                  </div>
                 </div>
-              </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-300 ml-1">Batch Scheme</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {['2022', '2021'].map(year => (
+                      <button
+                        key={year}
+                        type="button"
+                        onClick={() => setFormData({...formData, scheme: year})}
+                        className={`py-3 rounded-xl border text-sm font-black transition-all ${formData.scheme === year ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-900/50 border-slate-700/50 text-slate-500 hover:border-indigo-500/30 font-bold'}`}
+                      >
+                        {year} SCHEME
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
             )}
           </div>
 

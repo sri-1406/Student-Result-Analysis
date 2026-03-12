@@ -14,21 +14,17 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/student/dashboard" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-            <LayoutDashboard size={18} />
-            <span>Dashboard</span>
-          </Link>
-          <Link to="/faculty/dashboard" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-            <BarChart3 size={18} />
-            <span>Analytics</span>
-          </Link>
-        </div>
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4 bg-slate-900/40 p-1.5 rounded-xl border border-white/5">
+            <button className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg shadow-lg">2022 SCHEME</button>
+            <button className="px-3 py-1.5 text-slate-500 hover:text-white text-xs font-bold transition-all">2021</button>
+          </div>
 
-        <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors">
-          <LogOut size={18} />
-          <span className="font-medium">Logout</span>
-        </button>
+          <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors bg-slate-800/50 p-2 rounded-lg border border-white/5">
+            <LogOut size={18} />
+            <span className="font-bold text-xs uppercase tracking-wider">Logout</span>
+          </button>
+        </div>
       </div>
     </nav>
   );

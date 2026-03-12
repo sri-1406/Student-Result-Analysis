@@ -58,23 +58,26 @@ const Dashboard = () => {
           <p className="text-slate-400 mt-1">John Doe (1MS21CS001)</p>
         </div>
         
-        <div className="flex flex-wrap items-center gap-4 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
+        <div className="flex flex-wrap items-center gap-3 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
           <div className="flex items-center gap-2 px-3 text-indigo-400">
             <Settings2 size={18} />
-            <span className="text-sm font-bold uppercase tracking-wider">Select Scheme:</span>
+            <span className="text-xs font-black uppercase tracking-wider">Scheme</span>
           </div>
-          <select 
-            value={selectedScheme}
-            onChange={(e) => setSelectedScheme(e.target.value)}
-            className="bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer transition-all hover:border-indigo-500/30"
-          >
+          <div className="flex gap-2">
             {Object.keys(allSchemes).map(key => (
-              <option key={key} value={key}>{allSchemes[key].name}</option>
+              <button 
+                key={key}
+                onClick={() => setSelectedScheme(key)}
+                className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${selectedScheme === key ? 'bg-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/20' : 'bg-slate-800 border-slate-700 text-slate-500 hover:text-slate-300'}`}
+              >
+                {allSchemes[key].name.split(' ')[0]}
+              </button>
             ))}
-          </select>
-          <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl transition-all font-bold shadow-lg shadow-indigo-500/20 active:scale-95">
-            <Download size={18} />
-            <span>Report</span>
+          </div>
+          <div className="h-8 w-px bg-white/5 mx-1" />
+          <button className="flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 px-4 py-2 rounded-xl transition-all font-black text-xs border border-indigo-500/20 active:scale-95">
+            <Download size={16} />
+            <span>GENERATE REPORT</span>
           </button>
         </div>
       </div>
