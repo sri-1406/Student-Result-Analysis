@@ -42,8 +42,21 @@ const allSchemes = {
 
 const Dashboard = () => {
   const [activeSem, setActiveSem] = useState(6);
-  const [selectedScheme, setSelectedScheme] = useState("2022_cse");
-  const [currentSubjects, setCurrentSubjects] = useState(allSchemes["2022_cse"].subjects);
+  
+  // Initialize based on user's registered scheme
+  const getUserScheme = () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.scheme) {
+        const key = `${user.scheme}_cse`;
+        return allSchemes[key] ? key : "2022_cse";
+      }
+    } catch (e) {}
+    return "2022_cse";
+  };
+
+  const [selectedScheme, setSelectedScheme] = useState(getUserScheme());
+  const [currentSubjects, setCurrentSubjects] = useState(allSchemes[getUserScheme()].subjects);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -103,23 +116,7 @@ const Dashboard = () => {
         </div>
         
         <div className="flex flex-wrap items-center gap-3 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
-          <div className="flex items-center gap-2 px-3 text-indigo-400">
-            <Settings2 size={18} />
-            <span className="text-xs font-black uppercase tracking-wider">Scheme</span>
-          </div>
-          <div className="flex gap-2">
-            {Object.keys(allSchemes).map(key => (
-              <button 
-                key={key}
-                onClick={() => setSelectedScheme(key)}
-                className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${selectedScheme === key ? 'bg-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/20' : 'bg-slate-800 border-slate-700 text-slate-500 hover:text-slate-300'}`}
-              >
-                {allSchemes[key].name.split(' ')[0]}
-              </button>
-            ))}
-          </div>
-          <div className="h-8 w-px bg-white/5 mx-1" />
-          <button className="flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 px-4 py-2 rounded-xl transition-all font-black text-xs border border-indigo-500/20 active:scale-95">
+          <button className="flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 px-6 py-2.5 rounded-xl transition-all font-black text-xs border border-indigo-500/20 active:scale-95">
             <Download size={16} />
             <span>GENERATE REPORT</span>
           </button>
