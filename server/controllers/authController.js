@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Result = require('../models/Result');
+const { scrapeVTUResult } = require('../utils/scraper');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
@@ -10,6 +12,21 @@ const register = async (req, res) => {
 
         const user = new User({ name, email, password, role, usn, branch, semester });
         await user.save();
+
+        // Automatically fetch results for students
+        if (role === 'student' && usn) {
+            try {
+                const scrapedData = await scrapeVTUResult(usn);
+                const result = new Result({
+                    ...scrapedData,
+                    usn: user.usn
+                });
+                await result.save();
+                console.log(`Results automatically fetched and stored for ${user.usn}`);
+            } catch (scrapErr) {
+                console.error(`Automatic fetch failed for ${user.usn}:`, scrapErr.message);
+            }
+        }
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.status(201).json({ token, user: { id: user._id, name: user.name, role: user.role, usn: user.usn } });

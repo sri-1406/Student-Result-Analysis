@@ -44,10 +44,40 @@ const Dashboard = () => {
   const [activeSem, setActiveSem] = useState(6);
   const [selectedScheme, setSelectedScheme] = useState("2022_cse");
   const [currentSubjects, setCurrentSubjects] = useState(allSchemes["2022_cse"].subjects);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setCurrentSubjects(allSchemes[selectedScheme].subjects);
-  }, [selectedScheme]);
+    const fetchResults = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.usn) {
+          const response = await fetch(`http://localhost:5000/api/results/${user.usn}`);
+          const data = await response.json();
+          if (data && data.subjects) {
+            const mapped = data.subjects.map(s => ({
+              code: s.code,
+              name: s.name,
+              score: s.totalMarks
+            }));
+            setCurrentSubjects(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("Dashboard fetch failed, using default data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResults();
+  }, []);
+
+  useEffect(() => {
+    // Only update if not loading real data
+    if (!loading) {
+       // Allow user to switch schemes if they want to see "what iff" subjects,
+       // but real data overrides initial state.
+    }
+  }, [selectedScheme, loading]);
 
   const mockProgress = [
     { sem: 'Sem 1', sgpa: 8.2 },

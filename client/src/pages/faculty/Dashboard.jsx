@@ -1,59 +1,65 @@
 import { useState } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  PieChart, Pie, Cell, Legend 
+  PieChart, Pie, Cell, Legend, AreaChart, Area
 } from 'recharts';
 import { 
   Users, CheckCircle2, XCircle, BarChart2, 
-  Search, Download, Plus, Filter 
+  Search, Download, Plus, Filter, TrendingUp, BookOpen 
 } from 'lucide-react';
 
-const COLORS = ['#10b981', '#f43f5e', '#6366f1', '#f59e0b'];
+const COLORS = ['#6366f1', '#a855f7', '#22d3ee', '#f43f5e'];
 
 const mockStats = [
-  { name: 'Pass', value: 85 },
-  { name: 'Fail', value: 12 },
-  { name: 'Absent', value: 3 },
+  { name: 'S Grade', value: 25 },
+  { name: 'A Grade', value: 45 },
+  { name: 'B Grade', value: 30 },
+  { name: 'C Grade', value: 20 },
 ];
 
 const mockSubjectStats = [
-  { code: '21CS61', pass: 92, fail: 8 },
-  { code: '21CS62', pass: 88, fail: 12 },
-  { code: '21CS63', pass: 95, fail: 5 },
-  { code: '21CS64', pass: 80, fail: 20 },
+  { code: 'BCS301', pass: 92, fail: 8, avg: 82 },
+  { code: 'BCS302', pass: 88, fail: 12, avg: 76 },
+  { code: 'BCS303', pass: 95, fail: 5, avg: 85 },
+  { code: 'BCS304', pass: 80, fail: 20, avg: 70 },
 ];
 
 const FacultyDashboard = () => {
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 pb-12 transition-all duration-500">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-black text-white tracking-tight">Faculty <span className="text-emerald-400">Analytics</span></h1>
-          <p className="text-slate-400 mt-1">Analyzing department performance for Semester 6</p>
+          <h1 className="text-5xl font-black tracking-tight leading-tight">
+            <span className="text-white">Faculty</span> <span className="text-gradient">Insights</span>
+          </h1>
+          <p className="text-slate-400 mt-2 font-medium flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Analyzing Batch Performance — Semester 6 (CSE)
+          </p>
         </div>
-        <div className="flex gap-3">
-          <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl transition-all font-bold shadow-lg shadow-indigo-500/20">
+        <div className="flex gap-4 bg-slate-900/40 p-2 rounded-2xl border border-white/10">
+          <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl transition-all font-black text-xs uppercase shadow-lg shadow-indigo-500/20 active:scale-95">
             <Plus size={18} />
-            <span>Fetch New Batch</span>
+            <span>Fetch Results</span>
           </button>
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { label: 'Total Students', value: '184', icon: Users, color: 'text-white', bg: 'bg-white/5' },
-          { label: 'Overall Pass %', value: '88.4%', icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-          { label: 'Overall Fail %', value: '11.6%', icon: XCircle, color: 'text-rose-400', bg: 'bg-rose-400/10' },
+          { label: 'Total Students', value: '184', icon: Users, color: 'text-indigo-400', glow: 'shadow-indigo-500/10' },
+          { label: 'Pass Rate', value: '94.2%', icon: CheckCircle2, color: 'text-emerald-400', glow: 'shadow-emerald-500/10' },
+          { label: 'Avg Marks', value: '78.5', icon: TrendingUp, color: 'text-cyan-400', glow: 'shadow-cyan-500/10' },
         ].map((stat, idx) => (
-          <div key={idx} className="glass-dark p-6 rounded-3xl border border-white/5 flex items-center gap-6 group hover:border-indigo-500/30 transition-all">
-            <div className={`p-4 rounded-2xl ${stat.bg} ${stat.color} group-hover:scale-110 transition-transform`}>
-              <stat.icon size={28} />
+          <div key={idx} className={`glass-dark p-8 rounded-[2.5rem] border border-white/5 flex items-center gap-6 group hover:border-white/20 transition-all duration-500 card-glow shadow-xl ${stat.glow}`}>
+            <div className={`p-5 rounded-[1.5rem] bg-slate-900/50 ${stat.color} group-hover:scale-110 transition-transform duration-500 border border-white/5`}>
+              <stat.icon size={32} />
             </div>
             <div>
-              <p className="text-slate-400 text-sm font-medium">{stat.label}</p>
-              <h3 className="text-3xl font-bold text-white leading-none mt-1">{stat.value}</h3>
+              <p className="text-slate-400 text-xs font-black uppercase tracking-widest">{stat.label}</p>
+              <h3 className={`text-4xl font-black mt-1 ${stat.color} tracking-tighter`}>{stat.value}</h3>
             </div>
           </div>
         ))}
@@ -62,10 +68,9 @@ const FacultyDashboard = () => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Pass/Fail Distribution */}
-        <div className="glass-dark p-8 rounded-3xl border border-white/5">
-          <h2 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
-            <BarChart2 className="text-indigo-400" />
-            Result Distribution
+        <div className="glass-dark p-8 rounded-[2.5rem] border border-white/5 card-glow relative overflow-hidden group">
+          <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-2">
+            Grade Distribution
           </h2>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -91,73 +96,72 @@ const FacultyDashboard = () => {
         </div>
 
         {/* Subject-wise Comparison */}
-        <div className="glass-dark p-8 rounded-3xl border border-white/5">
-          <h2 className="text-xl font-bold text-white mb-8">Subject-wise Pass Comparison</h2>
+        <div className="glass-dark p-8 rounded-[2.5rem] border border-white/5 card-glow relative overflow-hidden group">
+          <h2 className="text-2xl font-black text-white mb-8">Pass % by Subject</h2>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={mockSubjectStats}>
+              <AreaChart data={mockSubjectStats}>
+                <defs>
+                  <linearGradient id="colorPass" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis dataKey="code" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '12px' }}
                 />
-                <Bar dataKey="pass" fill="#10b981" radius={[4, 4, 0, 0]} name="Pass %" />
-                <Bar dataKey="fail" fill="#f43f5e" radius={[4, 4, 0, 0]} name="Fail %" />
-              </BarChart>
+                <Area type="monotone" dataKey="pass" stroke="#6366f1" fillOpacity={1} fill="url(#colorPass)" strokeWidth={4} />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
       {/* Action Table */}
-      <div className="glass-dark rounded-3xl border border-white/5">
-        <div className="p-8 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h2 className="text-xl font-bold text-white">Subject-wise Detailed Report</h2>
+      <div className="glass-dark rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl">
+        <div className="p-8 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <h2 className="text-2xl font-black text-white">Subject Statistics</h2>
           <div className="flex gap-3">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
               <input 
                 type="text" 
-                placeholder="Search subject..." 
-                className="bg-slate-900/50 border border-slate-700/50 rounded-lg py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                placeholder="Search..." 
+                className="bg-slate-900/80 border border-slate-700/50 rounded-xl py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
               />
             </div>
-            <button className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-all">
-              <Filter size={18} />
+            <button className="p-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-400 hover:text-white transition-all border border-white/5">
+              <Filter size={20} />
             </button>
           </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-[#1e293b]/50 text-slate-400 text-xs uppercase">
+            <thead className="bg-[#1e293b]/50 text-slate-400 text-xs uppercase tracking-widest font-black">
               <tr>
-                <th className="px-8 py-4">Code</th>
-                <th className="px-8 py-4">Subject</th>
-                <th className="px-8 py-4">Total</th>
-                <th className="px-8 py-4">Pass</th>
-                <th className="px-8 py-4">Fail</th>
-                <th className="px-8 py-4">Avg Marks</th>
-                <th className="px-8 py-4">Action</th>
+                <th className="px-8 py-6">Code</th>
+                <th className="px-8 py-6">Subject</th>
+                <th className="px-8 py-6">Students</th>
+                <th className="px-8 py-6">Pass %</th>
+                <th className="px-8 py-6">Avg Marks</th>
+                <th className="px-8 py-6">Report</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
-              {[
-                { code: '21CS61', name: 'Software Engineering', total: 184, pass: 170, fail: 14, avg: 72 },
-                { code: '21CS62', name: 'Full Stack Development', total: 184, pass: 162, fail: 22, avg: 68 },
-                { code: '21CS63', name: 'Computer Networks', total: 184, pass: 175, fail: 9, avg: 75 },
-                { code: '21CS64', name: 'Operating Systems', total: 184, pass: 148, fail: 36, avg: 64 },
-              ].map((sub, idx) => (
-                <tr key={idx} className="hover:bg-white/5 transition-colors">
-                  <td className="px-8 py-5 font-mono text-indigo-400">{sub.code}</td>
-                  <td className="px-8 py-5 font-medium text-white">{sub.name}</td>
-                  <td className="px-8 py-5 text-slate-400">{sub.total}</td>
-                  <td className="px-8 py-5 text-emerald-400 font-bold">{sub.pass}</td>
-                  <td className="px-8 py-5 text-rose-400 font-bold">{sub.fail}</td>
-                  <td className="px-8 py-5 text-white">{sub.avg}</td>
-                  <td className="px-8 py-5">
-                    <button className="text-indigo-400 hover:text-white transition-colors">
-                      <Download size={18} />
+            <tbody className="divide-y divide-white/5 text-sm">
+              {mockSubjectStats.map((sub, idx) => (
+                <tr key={idx} className="hover:bg-white/5 transition-all group duration-300">
+                  <td className="px-8 py-6 font-mono text-indigo-400 font-bold">{sub.code}</td>
+                  <td className="px-8 py-6 font-bold text-white">Subject_{sub.code}</td>
+                  <td className="px-8 py-6 text-slate-400">184</td>
+                  <td className="px-8 py-6 text-emerald-400 font-black">{sub.pass}%</td>
+                  <td className="px-8 py-6 text-white font-medium">{sub.avg}</td>
+                  <td className="px-8 py-6">
+                    <button className="flex items-center gap-2 text-indigo-400 hover:text-white transition-all bg-indigo-500/10 px-4 py-2 rounded-xl border border-indigo-500/20 font-black text-[10px] uppercase">
+                      <Download size={14} />
+                      Export
                     </button>
                   </td>
                 </tr>

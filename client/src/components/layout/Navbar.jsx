@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, GraduationCap, BarChart3, LogOut, 
-  ChevronDown, Settings2, CheckCircle2 
+  ChevronDown, Settings2, CheckCircle2, ShieldCheck
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -19,9 +19,25 @@ const Navbar = () => {
             <GraduationCap className="text-white h-6 w-6" />
           </div>
           <span className="text-xl font-bold text-white tracking-tight">
-            Result<span className="text-indigo-400">Sphere</span>
+            Result<span className="text-indigo-400 font-black">Sphere</span>
           </span>
         </Link>
+
+        {/* Navigation Links */}
+        <div className="hidden lg:flex items-center gap-1 bg-slate-900/40 p-1 rounded-2xl border border-white/5">
+          <Link to="/student/dashboard" className="px-5 py-2.5 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all flex items-center gap-2">
+            <LayoutDashboard size={14} className="text-indigo-400" />
+            Student
+          </Link>
+          <Link to="/faculty/dashboard" className="px-5 py-2.5 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all flex items-center gap-2">
+            <BarChart3 size={14} className="text-emerald-400" />
+            Faculty
+          </Link>
+          <Link to="/admin/dashboard" className="px-5 py-2.5 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all flex items-center gap-2">
+            <ShieldCheck size={14} className="text-rose-400" />
+            Admin
+          </Link>
+        </div>
 
         <div className="flex items-center gap-6">
           <div className="relative group">
