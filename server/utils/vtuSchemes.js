@@ -1,56 +1,54 @@
 const vtuSchemes = {
   "2022": {
     "name": "2022 Scheme (OBE/CBCS)",
-    "streams": ["Civil", "Computer Science", "Electrical", "Mechanical"],
-    "commonSubjects": {
+    "description": "The latest major scheme for VTU engineering batches introduced in 2022-23.",
+    "streams": ["Computer Science (CSE)", "Information Science (ISE)", "Electrical", "Mechanical"],
+    "semesters": {
       "sem1_2": [
-        { "code": "BMATS101", "name": "Mathematics-I for Computer Science Stream" },
-        { "code": "BPHYS102", "name": "Applied Physics for CSE Stream" },
-        { "code": "BPOPS103", "name": "Principles of Programming using C" }
+        { "code": "BMATS101", "name": "Mathematics-I for Computer Science Stream", "credits": 4 },
+        { "code": "BPHYS102", "name": "Applied Physics for CSE Stream", "credits": 4 },
+        { "code": "BPOPS103", "name": "Principles of Programming using C", "credits": 3 },
+        { "code": "BEECO104", "name": "Engineering Economics", "credits": 3 }
       ],
       "sem3": {
         "CSE": [
-          { "code": "BCS301", "name": "Mathematics for Computer Science" },
-          { "code": "BCS302", "name": "Digital Design & Computer Organization" },
-          { "code": "BCS303", "name": "Operating Systems" },
-          { "code": "BCS304", "name": "Data Structures and Applications" }
-        ]
-      }
-    }
-  },
-  "2021": {
-    "name": "2021 Scheme (OBE/CBCS)",
-    "semesters": {
-      "sem3": {
-        "CSE": [
-          { "code": "21MAT31", "name": "Transform Calculus, Fourier Series & Numerical Techniques" },
-          { "code": "21CS32", "name": "Data Structures and Applications" },
-          { "code": "21CS33", "name": "Analog and Digital Electronics" },
-          { "code": "21CS34", "name": "Computer Organization and Architecture" }
+          { "code": "BCS301", "name": "Mathematics for Computer Science", "credits": 4 },
+          { "code": "BCS302", "name": "Digital Design & Computer Organization", "credits": 4 },
+          { "code": "BCS303", "name": "Operating Systems", "credits": 3 },
+          { "code": "BCS304", "name": "Data Structures and Applications", "credits": 3 },
+          { "code": "BCSL305", "name": "Data Structures Lab", "credits": 1 }
+        ],
+        "ISE": [
+          { "code": "BCS301", "name": "Mathematics for Computer Science", "credits": 4 },
+          { "code": "BCS302", "name": "Digital Design & Computer Organization", "credits": 4 },
+          { "code": "BCS303", "name": "Operating Systems", "credits": 3 },
+          { "code": "BCS304", "name": "Data Structures and Applications", "credits": 3 }
         ]
       },
       "sem4": {
         "CSE": [
-          { "code": "21CS41", "name": "Mathematical Foundations for Computing" },
-          { "code": "21CS42", "name": "Design and Analysis of Algorithms" },
-          { "code": "21CS43", "name": "Microcontroller and Embedded Systems" },
-          { "code": "21CS44", "name": "Operating Systems" }
+          { "code": "BCS401", "name": "Analysis & Design of Algorithms", "credits": 4 },
+          { "code": "BCS402", "name": "Microcontroller and Embedded System", "credits": 4 },
+          { "code": "BCS403", "name": "Software Engineering", "credits": 3 },
+          { "code": "BCSL404", "name": "Algorithms Lab", "credits": 1 }
+        ]
+      },
+      "sem5": {
+        "CSE": [
+          { "code": "BCS501", "name": "Management and Entrepreneurship", "credits": 3 },
+          { "code": "BCS502", "name": "Computer Networks", "credits": 4 },
+          { "code": "BCS503", "name": "Theory of Computation", "credits": 3 },
+          { "code": "BCSL504", "name": "Web Technology Lab", "credits": 1 },
+          { "code": "BCS586", "name": "Mini Project", "credits": 2 }
         ]
       }
     }
   },
-  "2018": {
-    "name": "2018 Scheme (CBCS)",
-    "sections": {
-      "sem5": {
-        "CSE": [
-          { "code": "18CS51", "name": "Management, Entrepreneurship for IT Industry" },
-          { "code": "18CS52", "name": "Computer Networks and Security" },
-          { "code": "18CS53", "name": "Database Management System" },
-          { "code": "18CS54", "name": "Application Development using Python" }
-        ]
-      }
-    }
+  "2023": {
+    "name": "2023 Update (2022 Extension)",
+    "description": "Continuation of the 2022 scheme with minor curriculum refinements.",
+    "isContinuation": true,
+    "base": "2022"
   }
 };
 
