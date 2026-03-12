@@ -20,11 +20,10 @@ const mockData = {
     { sem: 'Sem 6', sgpa: 8.5 },
   ],
   subjectPerformance: [
-    { subject: 'Maths', score: 85 },
-    { subject: 'DAA', score: 92 },
-    { subject: 'DBMS', score: 78 },
-    { subject: 'OS', score: 88 },
-    { subject: 'CN', score: 82 },
+    { subject: 'Maths (CS)', score: 85, code: 'BCS301' },
+    { subject: 'Digital Design', score: 92, code: 'BCS302' },
+    { subject: 'Operating Systems', score: 78, code: 'BCS303' },
+    { subject: 'Data Structures', score: 88, code: 'BCS304' },
   ]
 };
 
@@ -152,7 +151,7 @@ const Dashboard = () => {
             <tbody className="divide-y divide-white/5">
               {mockData.subjectPerformance.map((sub, idx) => (
                 <tr key={idx} className="hover:bg-white/5 transition-colors group">
-                  <td className="px-8 py-5 font-mono text-indigo-400">21CS6{idx+1}</td>
+                  <td className="px-8 py-5 font-mono text-indigo-400">{sub.code}</td>
                   <td className="px-8 py-5 font-medium text-white">{sub.subject}</td>
                   <td className="px-8 py-5 text-slate-400">38</td>
                   <td className="px-8 py-5 text-slate-400">52</td>
