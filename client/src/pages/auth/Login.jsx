@@ -8,14 +8,27 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Simulate login for now
-    if (email && password) {
-      toast.success('Successfully logged in!');
-      navigate('/student/dashboard');
-    } else {
-      toast.error('Please fill in all fields');
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('token', data.token);
+        toast.success(`Welcome back, ${data.user.name}!`);
+        if (data.user.role === 'admin') navigate('/admin/dashboard');
+        else if (data.user.role === 'faculty') navigate('/faculty/dashboard');
+        else navigate('/student/dashboard');
+      } else {
+        toast.error(data.message || 'Login failed');
+      }
+    } catch (err) {
+      toast.error('Network error. Is server running?');
     }
   };
 

@@ -13,10 +13,28 @@ const Register = () => {
   });
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    toast.success('Account created successfully!');
-    navigate('/login');
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('token', data.token);
+        toast.success('Account created and logged in!');
+        if (data.user.role === 'admin') navigate('/admin/dashboard');
+        else if (data.user.role === 'faculty') navigate('/faculty/dashboard');
+        else navigate('/student/dashboard');
+      } else {
+        toast.error(data.message || 'Registration failed');
+      }
+    } catch (err) {
+      toast.error('Network error. Is server running?');
+    }
   };
 
   return (

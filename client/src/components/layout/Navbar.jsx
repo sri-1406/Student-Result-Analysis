@@ -1,13 +1,23 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { 
   LayoutDashboard, GraduationCap, BarChart3, LogOut, 
   ChevronDown, Settings2, CheckCircle2, ShieldCheck
 } from 'lucide-react';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
   const [showSchemes, setShowSchemes] = useState(false);
   const [activeScheme, setActiveScheme] = useState('2025');
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    toast.success('Logged out successfully');
+    navigate('/login');
+  };
 
   const schemes = ['2025', '2022', '2021'];
 
@@ -69,7 +79,10 @@ const Navbar = () => {
             )}
           </div>
 
-          <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors bg-slate-800/50 p-2 rounded-xl border border-white/5 group">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors bg-slate-800/50 p-2 rounded-xl border border-white/5 group"
+          >
             <LogOut size={18} className="group-hover:rotate-12 transition-transform" />
             <span className="font-black text-[10px] uppercase tracking-wider">Logout</span>
           </button>
