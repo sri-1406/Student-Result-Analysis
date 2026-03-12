@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   LineChart, Line, PieChart, Pie, Cell 
@@ -42,6 +44,19 @@ const allSchemes = {
 
 const Dashboard = () => {
   const [activeSem, setActiveSem] = useState(6);
+  const dashboardRef = useRef(null);
+
+  const handleDownloadPDF = async () => {
+    const element = dashboardRef.current;
+    const canvas = await html2canvas(element, { scale: 2, backgroundColor: '#0f172a' });
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`Result_Analysis_${JSON.parse(localStorage.getItem('user'))?.usn || 'Report'}.pdf`);
+  };
   
   // Initialize based on user's registered scheme
   const getUserScheme = () => {
@@ -102,7 +117,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-8 pb-12 transition-all duration-500">
+    <div ref={dashboardRef} className="space-y-8 pb-12 transition-all duration-500">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
@@ -112,7 +127,10 @@ const Dashboard = () => {
         </div>
         
         <div className="flex flex-wrap items-center gap-3 bg-slate-900/40 p-2 rounded-2xl border border-white/5">
-          <button className="flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 px-6 py-2.5 rounded-xl transition-all font-black text-xs border border-indigo-500/20 active:scale-95">
+          <button 
+            onClick={handleDownloadPDF}
+            className="flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 px-6 py-2.5 rounded-xl transition-all font-black text-xs border border-indigo-500/20 active:scale-95"
+          >
             <Download size={16} />
             <span>GENERATE REPORT</span>
           </button>

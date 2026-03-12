@@ -46,6 +46,19 @@ const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+        // Background Refresh: Update results when student logs in
+        if (user.role === 'student' && user.usn) {
+            scrapeVTUResult(user.usn).then(async (scrapedData) => {
+                await Result.findOneAndUpdate(
+                    { usn: user.usn },
+                    { ...scrapedData },
+                    { upsert: true, new: true }
+                );
+                console.log(`[AUTH] Background result refresh completed for ${user.usn}`);
+            }).catch(err => console.error(`[AUTH] Background refresh failed: ${err.message}`));
+        }
+
         res.status(200).json({ token, user: { id: user._id, name: user.name, role: user.role, usn: user.usn } });
     } catch (error) {
         res.status(500).json({ message: error.message });
